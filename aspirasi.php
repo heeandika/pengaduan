@@ -5,9 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>aspirasi</title>
 </head>
-<style>
+    <style>
     
-</style>
+    body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th {
+            background-color: #ffffff;
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ffffff;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            color: yellow;
+        }
+
+        tr:hover{
+            background-color: #4f4f4f;
+            color: black;
+        }
+    </style>
 <h1>aspirasi</h1>
 <body>
     <table border="1" cellpadding="10" cellspacing="0">
@@ -24,16 +57,16 @@
         </tr>
         <?php 
         $sql = $koneksi->query("SELECT
-        input_aspirasi.*,
+        inp_aspirasi.*,
         siswa.kelas,
         kategori.ket_kategori,
         aspirasi.status,
-        aspirasi.feedbeck,
-        aspirasi.waktu
-        FROM input_aspirasi
-        LEFT JOIN siswa ON input_aspirasi.NIS = siswa.NIS
-        LEFT JOIN kategori ON input_aspirasi.id_kategori = kategori.id_kategori
-        LEFT JOIN aspirasi ON input_aspirasi.id_pelaporan = aspirasi.id_aspirasi
+        aspirasi.feedback,
+        aspirasi.tanggal
+        FROM inp_aspirasi
+        LEFT JOIN siswa ON inp_aspirasi.NIS = siswa.NIS
+        LEFT JOIN kategori ON inp_aspirasi.id_kategori = kategori.id_kategori
+        LEFT JOIN aspirasi ON inp_aspirasi.id_pelaporan = aspirasi.id_pelaporan
         ");
 
         if ($sql->num_rows > 0) {
@@ -47,8 +80,8 @@
                 echo "<td>" . $row['lokasi'] . "</td>";
                 echo "<td>" . $row['ket'] . "</td>";
                 echo "<td>" . $row['status'] . "</td>";
-                echo "<td>" . $row['feedbeck'] . "</td>";
-                echo "<td>" . $row['waktu'] . "</td>";
+                echo "<td>" . $row['feedback'] . "</td>";
+                echo "<td>" . $row['tanggal'] . "</td>";
                 echo "</td>";
             }
         } else {

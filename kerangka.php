@@ -58,9 +58,6 @@
         <div class="navbar-menu">
             <a href="?page=aspirasi" class="active">Aspirasi</a>
             <a href="?page=input">Input Aspirasi</a>
-            <a href="?page=siswa">Siswa</a>
-            <a href="?page=kategori">Kategori</a>
-            <a href="?page=logout" style="color: #dc3545;">Keluar</a>
         </div>
     </nav>
 
