@@ -71,7 +71,7 @@
                 <a href="?page=aspirasi">Aspirasi</a>
                 <a href="?page=siswa">Siswa</a>
                 <a href="?page=kategori">Kategori</a>
-                <a href="?page=logout" style="color: #dc3545;">Keluar</a>
+                <a href="../auth/login.php" style="color: #dc3545;">Keluar</a>
             </div>
         </div>
 
