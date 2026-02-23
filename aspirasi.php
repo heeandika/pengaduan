@@ -5,42 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>aspirasi</title>
 </head>
-    <style>
-    
+<style>
     body {
-            font-family: Arial, Helvetica, sans-serif;
-            padding: 20px;
-        }
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-        h1 {
-            color: #ffffff;
-            margin-bottom: 20px;
-        }
+    h1 {
+        color: #ffffff;
+        margin-bottom: 20px;
+    }
 
-        table {
-            width: 100%;
-        }
+    table {
+        width: 100%;
+    }
 
-        th {
-            background-color: #ffffff;
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ffffff;
-            font-size: 14px;
-        }
+    th {
+        background-color: #4f4f4f;
+        color: white;
+        padding: 10px;
+        text-align: left;
+        font-size: 14px;
+    }
 
-        td {
-            padding: 8px 10px;
-            border: 1px solid #ddd;
-            font-size: 14px;
-            color: yellow;
-        }
+    td {
+        padding: 8px 10px;
+        font-size: 14px;
+        color: yellow;
+    }
 
-        tr:hover{
-            background-color: #4f4f4f;
-            color: black;
-        }
-    </style>
+    tr:hover {
+        background-color: #363636;
+        color: black;
+    }
+    a {
+        text-decoration: none;
+        color: red;
+    }
+</style>
 <h1>aspirasi</h1>
 <body>
     <table border="1" cellpadding="10" cellspacing="0">
@@ -55,7 +56,7 @@
             <th>Feedbeck</th>
             <th>Waktu</th>
         </tr>
-        <?php 
+        <?php
         $sql = $koneksi->query("SELECT
         inp_aspirasi.*,
         siswa.kelas,
@@ -87,7 +88,7 @@
         } else {
             echo "data belum ada!!";
         }
-         ?>
+        ?>
     </table>
 </body>
 </html>

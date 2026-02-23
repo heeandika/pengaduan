@@ -9,7 +9,6 @@
 <style>
     body {
         font-family: Arial, Helvetica, sans-serif;
-        padding: 20px;
     }
 
     h1 {
@@ -22,23 +21,26 @@
     }
 
     th {
-        background-color: #ffffff;
+        background-color: #4f4f4f;
+        color: white;
         padding: 10px;
         text-align: left;
-        border: 1px solid #ffffff;
         font-size: 14px;
     }
 
     td {
         padding: 8px 10px;
-        border: 1px solid #ddd;
         font-size: 14px;
         color: yellow;
     }
 
     tr:hover {
-        background-color: #4f4f4f;
+        background-color: #363636;
         color: black;
+    }
+    a{
+        text-decoration: none;
+        color: red;
     }
 </style>
 <h1>aspirasi</h1>
@@ -83,8 +85,8 @@
                 echo "<td>" . $row['ket'] . "</td>";
                 echo "<td>" . $row['status'] . "</td>";
                 echo "<td>" . $row['feedback'] . "</td>";
-                echo "<td>" . $row['waktu'] . "</td>";
-                echo "<a href = '?page=edit_aspirasi&id=" . $row['id_pelaporan'] . "'>Edit</a>";
+                echo "<td>" . $row['tanggal'] . "</td>";
+                echo "<td> <a href = '?page=edit_aspirasi&id=" . $row['id_pelaporan'] . "'>Edit</a> </td>";
                 echo "</td>";
             }
         } else {

@@ -6,7 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siswa</title>
 </head>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
+    h1 {
+        color: #333;
+    }
+
+    form {
+        background: #4f4f4f;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        color: white;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    h1 {
+        color: #ffffff;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th {
+        background-color: #4f4f4f;
+        color: white;
+        padding: 10px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    td {
+        padding: 8px 10px;
+        font-size: 14px;
+        color: yellow;
+    }
+
+    tr:hover,
+    a:hover {
+        background-color: #363636;
+        color: black;
+    }
+
+    a {
+        text-decoration: none;
+        color: red;
+    }
+</style>
 <body>
     <h1>Siswa</h1>
     <?php
