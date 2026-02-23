@@ -20,12 +20,19 @@
         $username = $_POST['username'];
         $password = md5($_POST['password']);
 
-        $stmt = $koneksi->prepare("SELECT * FROM admin ($username, $password) VALUES (?, ?)");
-        $stmt->bind_param("is", $username, $password);
-        $stmt->execute(
-            header("Location: ../admin/?page=aspirasi")
-        );
+        $query = $koneksi->query("SELECT * FROM admin WHERE username = '$username' AND password = '$password'");
+        $data  = $query->fetch_assoc();
 
+        if ($data) {
+            $_SESSION['username'] = $data['username'];
+            $_SESSION['password'] = $data['password'];
+
+            header("Location: ../admin/?page=aspirasi");
+            exit();
+        } else {
+            echo "yang bener??";
+            exit();
+        }
     }
      ?>
 </body>

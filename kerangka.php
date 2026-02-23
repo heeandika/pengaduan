@@ -3,25 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kerangka</title>
-</head>
-<style>
-    a{
-        text-decoration: none;
-        padding-right: 10px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: larger;
-    }
+    <title>Kerangka siswa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            background-color: #1D1D1D;
+        }
 
-    .card{
-        margin-bottom: 40px;
-    }
-</style>
+        .navbar {
+            background-color: #424242;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        h1{
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .navbar-menu{
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .navbar-menu a{
+            text-decoration: none;
+            color: #f7f7f7;
+            font-size: 16px;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        .card{
+            background-color: #424242;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px;
+        }
+
+    </style>
+</head>
 <body>
+    <nav class="navbar">
+        <h1 >panel siswa</h1>
+        <div class="navbar-menu">
+            <a href="?page=aspirasi" class="active">Aspirasi</a>
+            <a href="?page=input">Input Aspirasi</a>
+            <a href="?page=siswa">Siswa</a>
+            <a href="?page=kategori">Kategori</a>
+            <a href="?page=logout" style="color: #dc3545;">Keluar</a>
+        </div>
+    </nav>
+
     <div class="card">
-        <a href="?page=aspirasi">aspirasi</a>
-        <a href="?page=input">input aspirasi</a>
+        <?php include $konten ?>
     </div>
-    <?php include $konten ?>
 </body>
 </html>
