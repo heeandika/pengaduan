@@ -14,7 +14,8 @@
     h2 {
         color: yellow;
     }
-    label{
+
+    label {
         display: block;
         text-decoration: underline #ffeb38;
         font-size: 25px;
@@ -43,7 +44,8 @@
         width: 100%;
         margin: 10px 0;
         padding: 10PX;
-}   
+    }
+
     input,
     select {
         width: 100%;
@@ -54,7 +56,7 @@
         font-size: 20px;
     }
 
-    select{
+    select {
         padding-left: 40%;
         font-size: 30px;
         display: flex;
@@ -62,16 +64,18 @@
     }
 </style>
 <?php
+// Proses submit form input aspirasi
 if (isset($_POST['submit'])) {
+    // Ambil data dari form
     $NIS = $_POST['NIS'];
-    $id_kategori = $_POST['id_kategori']?? "";
-    $ket_kategori = $_POST['ket_kategori'];
+    $id_kategori = $_POST['id_kategori'] ?? "";
     $lokasi = $_POST['lokasi'];
     $ket = $_POST['ket'];
-    $status = "panding";
-    $feedback = "";
-    $waktu = date("Y-m-d H:i:s");
+    $status = "pending"; // Status default
+    $feedback = ""; // Feedback kosong di awal
+    $waktu = date("Y-m-d H:i:s"); // Waktu sekarang
 
+    // Cek apakah NIS terdaftar di tabel siswa
     $result = $koneksi->query("SELECT * FROM siswa WHERE NIS=$NIS");
     if ($result->num_rows > 0) {
         echo "NIS sudah ada!!";
@@ -80,21 +84,26 @@ if (isset($_POST['submit'])) {
         exit();
     }
 
+    // Insert ke tabel inp_aspirasi
     $stmt = $koneksi->prepare("INSERT INTO inp_aspirasi (NIS, id_kategori, lokasi, ket) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("iiss", $NIS, $id_kategori, $lokasi, $ket);
-    
+
     if ($stmt->execute()) {
-        var_dump($stmt->insert_id);
+        // Ambil id_pelaporan yang baru saja diinsert
         $id = $stmt->insert_id;
+        
+        // Insert ke tabel aspirasi
         $stmt1 = $koneksi->prepare("INSERT INTO aspirasi (id_pelaporan, status, tanggal, feedback, id_kategori) VALUES (?, ?, ?, ?, ?)");
         $stmt1->bind_param("isssi", $id, $status, $waktu, $feedback, $id_kategori);
+        
         if ($stmt1->execute()) {
+            // Redirect ke halaman aspirasi jika berhasil
             header("Location: ?page=aspirasi");
         } else {
             echo "Error: " . $stmt1->error;
         }
+        }
     }
-}
 ?>
 
 <body>
@@ -103,19 +112,21 @@ if (isset($_POST['submit'])) {
         <label for="NIS">NIS:</label>
         <input type="number" name="NIS" required>
 
-        <label for="ket_kategori">Kategori</label>
+        <label for="id_kategori">Kategori</label>
         <select name="id_kategori">
             <option>---- pilih kategori ----</option>
-            <?php
+<?php
+            // Ambil data kategori dari database
             $result = $koneksi->query("SELECT * FROM kategori ORDER BY ket_kategori");
             if ($result->num_rows > 0) {
+                // Tampilkan semua kategori sebagai option
                 while ($row = $result->fetch_assoc()) {
                     echo "<option value='$row[id_kategori]'>$row[ket_kategori]</option>";
                 }
             } else {
                 echo "Kategori tidak tersedia";
             }
-            ?>
+?>
         </select>
 
         <label for="lokasi">Lokasi:</label>

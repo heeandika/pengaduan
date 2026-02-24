@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,8 @@
     h2 {
         color: yellow;
     }
-    label{
+
+    label {
         display: block;
         text-decoration: underline #ffeb38;
         font-size: 25px;
@@ -42,6 +44,7 @@
         margin: 10px 0;
         padding: 8px;
     }
+
     input,
     select {
         width: 100%;
@@ -52,19 +55,22 @@
         font-size: 20px;
     }
 
-    select{
+    select {
         padding-left: 40%;
         font-size: 30px;
         display: flex;
         justify-content: center;
     }
 </style>
-    <?php
-      if (isset($_GET['id'])) {
-        $id = $_GET['id'];
-        $stmt = $koneksi->query("SELECT * FROM aspirasi WHERE id_pelaporan=$id");
-      }
-    ?>
+<?php
+// Cek apakah ada id yang dikirim via url
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    // Ambil data aspirasi berdasarkan id
+    $stmt = $koneksi->query("SELECT * FROM aspirasi WHERE id_pelaporan=$id");
+}
+?>
+
 <body>
     <h1>Edit Aspirasi</h1>
     <form action="" method="post">
@@ -81,24 +87,32 @@
         <button type="submit" name="submit">Submit</button>
     </form>
     <?php
-      if (isset($_POST['submit'])) {
+    // Cek apakah form sudah disubmit
+    if (isset($_POST['submit'])) {
+        // Ambil data dari form
         $status     = $_POST['status'];
-        $feedback   = $_POST['feedback']; 
+        $feedback   = $_POST['feedback'];
 
+        // Validasi: pastikan semua data tidak kosong
         if (empty($status) || empty($feedback)) {
             echo "semua data harus diisi!!";
         } else {
+            // Gunakan prepared statement untuk mencegah sql injection
             $stmt = $koneksi->prepare("UPDATE aspirasi SET status=?, feedback=? WHERE id_pelaporan=?");
-            $stmt->bind_param("ssi", $status, $feedback, $id);
+            $stmt->bind_param("ssi", $status, $feedback, $id); // "ssi" = string, string, integer
             $stmt->execute();
 
+            // Cek apakah ada data yang terupdate
             if ($stmt->affected_rows > 0) {
+                // Redirect ke halaman aspirasi jika berhasil
                 header("Location: ?page=aspirasi");
+                exit(); // Hentikan eksekusi setelah redirect
             } else {
                 echo "gagal, coba lagi nanti!!";
             }
         }
-      }
+    }
     ?>
 </body>
+
 </html>

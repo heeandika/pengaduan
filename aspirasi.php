@@ -57,7 +57,8 @@
             <th>Feedback</th>
             <th>Waktu</th>
         </tr>
-        <?php
+<?php
+        // Query untuk mengambil data aspirasi dengan join ke tabel lain
         $sql = $koneksi->query("SELECT
         inp_aspirasi.*,
         siswa.kelas,
@@ -71,8 +72,10 @@
         LEFT JOIN aspirasi ON inp_aspirasi.id_pelaporan = aspirasi.id_pelaporan
         ");
 
+        // Cek apakah ada data yang ditemukan
         if ($sql->num_rows > 0) {
             $no = 1;
+            // Looping untuk menampilkan semua data
             while ($row = $sql->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $no++ . "</td>";
@@ -87,9 +90,10 @@
                 echo "</td>";
             }
         } else {
+            // Tampilkan pesan jika tidak ada data
             echo "data belum ada!!";
         }
-        ?>
+?>
     </table>
 </body>
 </html>

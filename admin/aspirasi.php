@@ -39,7 +39,8 @@
         background-color: #363636;
         color: black;
     }
-    a{
+
+    a {
         text-decoration: none;
         color: red;
     }
@@ -61,6 +62,7 @@
             <th>Aksi</th>
         </tr>
         <?php
+        // Query untuk mengambil data aspirasi dengan join ke tabel lain
         $sql = $koneksi->query("SELECT
         inp_aspirasi.*,
         siswa.kelas,
@@ -74,8 +76,10 @@
         LEFT JOIN aspirasi ON inp_aspirasi.id_pelaporan = aspirasi.id_pelaporan
         ");
 
+        // Cek apakah ada data yang ditemukan
         if ($sql->num_rows > 0) {
             $no = 1;
+            // Looping untuk menampilkan semua data
             while ($row = $sql->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $no++ . "</td>";
@@ -87,14 +91,14 @@
                 echo "<td>" . $row['status'] . "</td>";
                 echo "<td>" . $row['feedback'] . "</td>";
                 echo "<td>" . $row['tanggal'] . "</td>";
-                echo "<td> <a href = '?page=edit_aspirasi&id=" . $row['id_pelaporan'] . "'>Edit</a> </td>";
-                echo "</td>";
+                echo "<td> <a href='?page=edit_aspirasi&id=" . $row['id_pelaporan'] . "'>Edit</a> </td>";
+                echo "</tr>";
             }
         } else {
+            // Tampilkan pesan jika tidak ada data
             echo "data belum ada!!";
         }
         ?>
-        <a href=></a>
     </table>
 </body>
 

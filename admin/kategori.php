@@ -22,7 +22,8 @@
         border-radius: 5px;
         color: white;
     }
-    input{
+
+    input {
         border-radius: 10px;
         border: none;
         padding: 3px 30px;
@@ -77,18 +78,22 @@
 <body>
     <h1>kategori</h1>
     <?php
+    // Inisialisasi variabel
     $id_kategori    = "";
     $ket_kategori   = "";
 
+    // Proses submit form (tambah/edit)
     if (isset($_POST['submit'])) {
 
-        $id             = $_POST['id'] ?? "";;
+        // Ambil data dari form
+        $id             = $_POST['id'] ?? "";
         $ket_kategori   = $_POST['ket_kategori'];
 
+        // Validasi input tidak boleh kosong
         if (empty($ket_kategori)) {
             $error = "Semua data harus diisi";
         } else {
-
+            // Jika id tidak kosong = update, jika kosong = insert
             if (!empty($id)) {
                 $stmt = $koneksi->prepare("UPDATE kategori SET ket_kategori=? WHERE id_kategori=?");
                 $stmt->bind_param("si", $ket_kategori, $id);
@@ -96,70 +101,71 @@
                 $stmt = $koneksi->prepare("INSERT INTO kategori (ket_kategori) VALUES (?)");
                 $stmt->bind_param("s", $ket_kategori);
             }
-        }
-        if (!$stmt->execute()) {
-            header("Location: ?page=kategori");
-            exit();
-        } else {
-            $error = "Error: " . $stmt->error;
+
+            // Eksekusi query
+            if ($stmt->execute()) {
+                header("Location: ?page=kategori");
+                exit();
+            } else {
+                $error = "Error: " . $stmt->error;
+            }
         }
     }
 
+    // Ambil data untuk diedit (jika ada parameter id di url)
     if (isset($_GET['id'])) {
-        $id   = (int)$_GET['id'] ?? "";
+        $id   = (int)$_GET['id'];
         $stmt = $koneksi->prepare("SELECT * FROM kategori WHERE id_kategori=?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
-
         $result = $stmt->get_result();
 
+        // Cek apakah data ditemukan
         if ($result->num_rows == 0) {
-            exit("data kosong");
+            exit("Data tidak ditemukan");
         }
-        $data = $result->fetch_assoc();
 
+        $data = $result->fetch_assoc();
         $id_kategori    = $data['id_kategori'];
         $ket_kategori   = $data['ket_kategori'];
     }
-
     ?>
+
+    <!-- Form tambah/edit kategori -->
     <form action="" method="post">
-
         <input type="hidden" name="id" value="<?= $id_kategori ?>">
-
         <label for="ket_kategori">Kategori:</label>
         <input type="text" name="ket_kategori" value="<?= $ket_kategori ?>">
-
         <button type="submit" name="submit">
-
             <?= !empty($id_kategori) ? "Ubah" : "Tambah" ?>
-
         </button>
-
     </form>
-    <table border="1" cellpaddong="10" cellspacing="0">
+
+    <table border="1" cellpadding="10" cellspacing="0">
         <tr>
             <th>NO</th>
-            <th>kategori</th>
+            <th>Kategori</th>
             <th>Aksi</th>
         </tr>
         <?php
+        // Tampilkan semua data dari table kategori
         $sql = $koneksi->query("SELECT * FROM kategori");
         if ($sql->num_rows > 0) {
             $no = 1;
             while ($row = $sql->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $no++ . "</td>";
-                echo "<td>" . $row['ket_kategori'] . "</td>";
+                echo "<td>" . htmlspecialchars($row['ket_kategori']) . "</td>";
                 echo "<td>
-                <a href='?page=kategori&id="         . $row['id_kategori'] . "'>Edit </a>|
-                <a href='?page=hapus_kategori&id="   . $row['id_kategori'] . "'onclick='return confirm(\"yakin?\")'>hapus</a>
-                </td>";
+                <a href='?page=kategori&id=" . $row['id_kategori'] . "'>Edit</a> |
+                <a href='?page=hapus_kategori&id=" . $row['id_kategori'] . "' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a>
+            </td>";
                 echo "</tr>";
             }
+        } else {
+            echo "<tr><td colspan='3' style='text-align:center'>Belum ada data kategori</td></tr>";
         }
         ?>
-
     </table>
 </body>
 

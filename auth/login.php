@@ -93,30 +93,39 @@
 
         <button type="submit" name="submit">Submit</button>
     </form>
-    <?php
+<?php
+    // Memasukkan file koneksi database
     include "../koneksi.php";
 
-    if (isset($_POST['submit'])) {
-        $username = (int)$_POST['username'];
-        $password = md5($_POST['password']);
+    // Memulai session
+    session_start();
 
+    // Proses submit form login
+    if (isset($_POST['submit'])) {
+        // Ambil data dari form
+        $username = (int)$_POST['username']; // Konversi ke integer untuk keamanan
+        $password = md5($_POST['password']); // Hash password dengan md5
+
+        // Query cek login
         $query = $koneksi->query("SELECT * FROM admin WHERE username = '$username' AND password = '$password'");
         $data  = $query->fetch_assoc();
 
+        // Cek apakah data ditemukan
         if ($data) {
+            // Set session
             $_SESSION['username'] = $data['username'];
             $_SESSION['password'] = $data['password'];
 
+            // Redirect ke halaman admin
             header("Location: ../admin/?page=aspirasi");
             exit();
         } else {
-            // header("location: login.php");
+            // Login gagal
             echo "yang bener??";
             exit();
-            
         }
     }
-    ?>
+?>
 </body>
 
 </html>

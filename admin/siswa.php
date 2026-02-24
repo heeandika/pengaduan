@@ -10,9 +10,10 @@
     body {
         font-family: Arial, Helvetica, sans-serif;
     }
-    label{
+
+    label {
         padding: 10%;
-        
+
     }
 
     h1 {
@@ -26,7 +27,8 @@
         border-radius: 5px;
         color: white;
     }
-    input{
+
+    input {
         border-radius: 10px;
         border: none;
         padding: 3px 30px;
@@ -78,76 +80,80 @@
         color: red;
     }
 </style>
+
 <body>
     <h1>Siswa</h1>
     <?php
+    // Inisialisasi variabel form
     $id_siswa   = "";
     $NIS        = "";
     $kelas      = "";
 
+    // Proses submit form (tambah/edit)
     if (isset($_POST['submit'])) {
-
+        // Ambil data dari form
         $id     = $_POST['id'] ?? "";
         $NIS    = $_POST['NIS'];
         $kelas  = $_POST['kelas'];
 
+        // Validasi input tidak boleh kosong
         if (empty($NIS) || empty($kelas)) {
             $error = "Semua data harus diisi";
         } else {
-
+            // Jika id tidak kosong = update, jika kosong = insert
             if (!empty($id)) {
                 $stmt = $koneksi->prepare("UPDATE siswa SET NIS=?, kelas=? WHERE id=?");
-                $stmt->bind_param("isi", $NIS, $kelas, $id);
+                $stmt->bind_param("isi", $NIS, $kelas, $id); // i=integer, s=string, i=integer
             } else {
                 $stmt = $koneksi->prepare("INSERT INTO siswa (NIS, kelas) VALUES (?, ?)");
-                $stmt->bind_param("is", $NIS, $kelas);
+                $stmt->bind_param("is", $NIS, $kelas); // i=integer, s=string
             }
-        }
-        if ($stmt->execute()) {
-            header("Location: ?page=siswa");
-            exit();
-        } else {
-            $error = "Error: " . $stmt->error;
+
+            // Eksekusi query
+            if ($stmt->execute()) {
+                header("Location: ?page=siswa");
+                exit();
+            } else {
+                $error = "Error: " . $stmt->error;
+            }
         }
     }
 
+    // Ambil data untuk diedit (jika ada parameter id di url)
     if (isset($_GET['id'])) {
-        $id   = (int)$_GET['id'] ?? "";
+        $id   = (int)$_GET['id'];
         $stmt = $koneksi->prepare("SELECT * FROM siswa WHERE id=?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
-
         $result = $stmt->get_result();
 
+        // Cek apakah data ditemukan
         if ($result->num_rows == 0) {
-            exit("data kosong");
+            exit("Data tidak ditemukan");
         }
-        $data = $result->fetch_assoc();
 
+        $data = $result->fetch_assoc();
         $id_siswa   = $data['id'];
         $NIS        = $data['NIS'];
         $kelas      = $data['kelas'];
     }
-
     ?>
-    <form action="" method="post">
 
+    <form action="" method="post">
         <input type="hidden" name="id" value="<?= $id_siswa ?>">
 
         <label for="NIS">NIS:</label>
-        <input type="number" name="NIS" value="<?= $NIS ?>">
+        <input type="number" name="NIS" value="<?= $NIS ?>" required>
 
         <label for="kelas">Kelas:</label>
-        <input type="text" name="kelas" value="<?= $kelas ?>">
+        <input type="text" name="kelas" value="<?= $kelas ?>" required>
 
         <button type="submit" name="submit">
-
             <?= !empty($id_siswa) ? "Ubah" : "Tambah" ?>
-            
         </button>
-
     </form>
-    <table border="1" cellpaddong="10" cellspacing="0">
+
+    <table border="1" cellpadding="10" cellspacing="0">
         <tr>
             <th>NO</th>
             <th>NIS</th>
@@ -155,24 +161,27 @@
             <th>Aksi</th>
         </tr>
         <?php
+        // Tampilkan semua data dari table siswa
         $sql = $koneksi->query("SELECT * FROM siswa");
         if ($sql->num_rows > 0) {
             $no = 1;
             while ($row = $sql->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $no++         . "</td>";
-                echo "<td>" . $row['NIS']   . "</td>";
-                echo "<td>" . $row['kelas'] . "</td>";
+                echo "<td>" . $no++ . "</td>";
+                echo "<td>" . htmlspecialchars($row['NIS']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['kelas']) . "</td>";
                 echo "<td>
-                <a href='?page=siswa&id="         . $row['id'] . "'>Edit </a>|
-                <a href='?page=hapus_siswa&id="   . $row['id'] . "'onclick='return confirm(\"yakin?\")'>hapus</a>
-                </td>";
+                <a href='?page=siswa&id=" . $row['id'] . "'>Edit</a> |
+                <a href='?page=hapus_siswa&id=" . $row['id'] . "' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a>
+            </td>";
                 echo "</tr>";
             }
+        } else {
+            echo "<tr><td colspan='4' style='text-align:center'>Belum ada data siswa</td></tr>";
         }
         ?>
-
     </table>
+
 </body>
 
 </html>
