@@ -12,7 +12,7 @@
     }
 
     h1 {
-        color: #333;
+        color: #333333;
     }
 
     form {
@@ -21,6 +21,12 @@
         margin-bottom: 20px;
         border-radius: 5px;
         color: white;
+    }
+    input{
+        border-radius: 10px;
+        border: none;
+        padding: 3px 30px;
+        font-size: 16px;
     }
 
     button {
@@ -46,12 +52,12 @@
         color: white;
         padding: 10px;
         text-align: left;
-        font-size: 14px;
+        font-size: 17px;
     }
 
     td {
         padding: 8px 10px;
-        font-size: 14px;
+        font-size: 20px;
         color: yellow;
     }
 
@@ -148,11 +154,11 @@
             $no = 1;
             while ($row = $sql->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $no++ . "</td>";
-                echo "<td>" . $row['NIS'] . "</td>";
+                echo "<td>" . $no++         . "</td>";
+                echo "<td>" . $row['NIS']   . "</td>";
                 echo "<td>" . $row['kelas'] . "</td>";
                 echo "<td>
-                <a href='?page=siswa&id="         . $row['id'] . "'>Edit </a>
+                <a href='?page=siswa&id="         . $row['id'] . "'>Edit </a>|
                 <a href='?page=hapus_siswa&id="   . $row['id'] . "'onclick='return confirm(\"yakin?\")'>hapus</a>
                 </td>";
                 echo "</tr>";

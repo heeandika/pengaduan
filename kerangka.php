@@ -44,10 +44,12 @@
             border-radius: 4px;
         }
         .card{
-            background-color: #424242;
+            background-color: #848484;
             border-radius: 8px;
             padding: 20px;
             margin: 20px;
+            box-shadow: 10px 16px;
+            margin-top: 40px;
         }
 
     </style>

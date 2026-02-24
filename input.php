@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
     $lokasi = $_POST['lokasi'];
     $ket = $_POST['ket'];
     $status = "panding";
-    $feedbech = "";
+    $feedback = "";
     $waktu = date("Y-m-d H:i:s");
 
     $result = $koneksi->query("SELECT * FROM siswa WHERE NIS=$NIS");
@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
 
     if ($stmt->execute()) {
         $stmt1 = $koneksi->prepare("INSERT INTO aspirasi (id_pelaporan, status, tanggal, feedback, id_kategori) VALUES (?, ?, ?, ?, ?)");
-        $stmt1->bind_param("issss", $id_pelaporan, $status, $tanggal, $feedback, $id_kategori);
+        $stmt1->bind_param("isssi", $id_pelaporan, $status, $tanggal, $waktu, $id_kategori);
         if ($stmt1->execute()) {
             header("Location: ?page=aspirasi");
         } else {
@@ -86,10 +86,10 @@ if (isset($_POST['submit'])) {
         <select name="ket_kategori">
             <option>-- pilih kategori --</option>
             <?php
-            $sql = $koneksi->query("SELECT * FROM kategori ORDER BY ket_kategori");
-            if ($sql->num_rows > 0) {
-                while ($hasil = $sql->fetch_assoc()) {
-                    echo "<option value='" . $hasil['id_kategori'] . "'>" . $hasil['ket_kategori'] . "</option>";
+            $result = $koneksi->query("SELECT * FROM kategori ORDER BY ket_kategori");
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='$row[id_kategori]'>$row[ket_kategori]</option>";
                 }
             } else {
                 echo "Kategori tidak tersedia";

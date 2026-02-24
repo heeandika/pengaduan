@@ -44,7 +44,7 @@
     <?php
       if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $stmt = $koneksi->query("SELECT * FROM pelaporan WHERE id_pelaporan=$id");
+        $stmt = $koneksi->query("SELECT * FROM aspirasi WHERE id_aspirasi=$id");
       }
     ?>
 <body>
@@ -52,12 +52,12 @@
     <form action="" method="post">
         <label for="status">Status:</label>
         <select name="status">
-            <option value="panding">Panding</option>
-            <option value="diproses">Diproses</option>
+            <option value="menunggu">Menunggu</option>
+            <option value="proses">Diproses</option>
             <option value="selesai">Selesai</option>
         </select>
 
-        <label for="feedback">Feedbeck:</label>
+        <label for="feedback">Feedback:</label>
         <textarea name="feedback"></textarea>
 
         <button type="submit" name="submit">Submit</button>
@@ -65,13 +65,13 @@
     <?php
       if (isset($_POST['submit'])) {
         $status     = $_POST['status'];
-        $feedbeck   = $_POST['feedback']; 
+        $feedback   = $_POST['feedback']; 
 
-        if (empty($status) || empty($feedbeck)) {
+        if (empty($status) || empty($feedback)) {
             echo "semua data harus diisi!!";
         } else {
             $stmt = $koneksi->prepare("UPDATE aspirasi SET status=?, feedback=? WHERE id_pelaporan=?");
-            $stmt->bind_param("ssi", $status, $feedbeck, $id);
+            $stmt->bind_param("ssi", $status, $feedback, $id);
             $stmt->execute();
 
             if ($stmt->affected_rows > 0) {
