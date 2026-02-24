@@ -17,6 +17,7 @@
 
     table {
         width: 100%;
+        height: 40vh;
     }
 
     th {
@@ -53,7 +54,7 @@
             <th>Lokasi</th>
             <th>Keterangan</th>
             <th>Status</th>
-            <th>Feedbeck</th>
+            <th>Feedback</th>
             <th>Waktu</th>
         </tr>
         <?php
@@ -75,14 +76,14 @@
             while ($row = $sql->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $no++ . "</td>";
-                echo "<td>" . $row['NIS'] . "</td>";
+                echo "<td>" . $row['NIS'] . "</td>";    
                 echo "<td>" . $row['kelas'] . "</td>";
                 echo "<td>" . $row['ket_kategori'] . "</td>";
                 echo "<td>" . $row['lokasi'] . "</td>";
                 echo "<td>" . $row['ket'] . "</td>";
                 echo "<td>" . $row['status'] . "</td>";
-                echo "<td>" . $row['tanggal'] . "</td>";
                 echo "<td>" . $row['feedback'] . "</td>";
+                echo "<td>" . $row['tanggal'] . "</td>";
                 echo "</td>";
             }
         } else {

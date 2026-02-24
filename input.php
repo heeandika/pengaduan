@@ -29,11 +29,12 @@
     button {
         background-color: #007bff;
         color: white;
-        padding: 10px 15px;
+        padding: 20px 25px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
         box-shadow: 5px 6px #8fc5ff;
+        font-size: 15px;
 
     }
 
@@ -41,7 +42,8 @@
         height: 90px;
         width: 100%;
         margin: 10px 0;
-    }
+        padding: 10PX;
+}   
     input,
     select {
         width: 100%;
@@ -49,6 +51,14 @@
         margin: 10px 0;
         border-radius: 8px;
         border: none;
+        font-size: 20px;
+    }
+
+    select{
+        padding-left: 40%;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
     }
 </style>
 <?php
@@ -77,7 +87,7 @@ if (isset($_POST['submit'])) {
         var_dump($stmt->insert_id);
         $id = $stmt->insert_id;
         $stmt1 = $koneksi->prepare("INSERT INTO aspirasi (id_pelaporan, status, tanggal, feedback, id_kategori) VALUES (?, ?, ?, ?, ?)");
-        $stmt1->bind_param("isssi", $id, $status, $tanggal, $waktu, $id_kategori);
+        $stmt1->bind_param("isssi", $id, $status, $waktu, $feedback, $id_kategori);
         if ($stmt1->execute()) {
             header("Location: ?page=aspirasi");
         } else {
@@ -95,7 +105,7 @@ if (isset($_POST['submit'])) {
 
         <label for="ket_kategori">Kategori</label>
         <select name="id_kategori">
-            <option>-- pilih kategori --</option>
+            <option>---- pilih kategori ----</option>
             <?php
             $result = $koneksi->query("SELECT * FROM kategori ORDER BY ket_kategori");
             if ($result->num_rows > 0) {

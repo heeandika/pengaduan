@@ -23,7 +23,7 @@
             justify-content: space-between;
         }
         h1{
-            font-size: 24px;
+            font-size: 30px;
             font-weight: bold;
             color: #ffffff;
             text-decoration: none;

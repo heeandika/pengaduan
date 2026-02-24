@@ -29,12 +29,11 @@
         }
 
         .sidebar h1 {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 26px;
             color: #ffffff;
-            padding: 0 20px 20px 20px;
+            padding: 0 20px 20px 40px;
             border-bottom: 1px solid #000000;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
         }
 
         .sidebar-menu {
@@ -43,10 +42,10 @@
         }
 
         .sidebar-menu a {
-            padding: 12px 20px;
+            padding: 20px 20px;
             text-decoration: none;
             color: #ffffff;
-            font-size: 15px;
+            font-size: 20px;
             border-left: 3px solid transparent;
         }
 

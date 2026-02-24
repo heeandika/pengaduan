@@ -10,6 +10,10 @@
     body {
         font-family: Arial, Helvetica, sans-serif;
     }
+    label{
+        padding: 10%;
+        
+    }
 
     h1 {
         color: #333333;
@@ -36,6 +40,7 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        margin-left: 80px;
     }
 
     h1 {
@@ -45,6 +50,7 @@
 
     table {
         width: 100%;
+        height: 40vh;
     }
 
     th {

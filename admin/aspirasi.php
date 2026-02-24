@@ -18,6 +18,7 @@
 
     table {
         width: 100%;
+        height: 40vh;
     }
 
     th {
@@ -30,7 +31,7 @@
 
     td {
         padding: 8px 10px;
-        font-size: 14px;
+        font-size: 18px;
         color: yellow;
     }
 
@@ -57,7 +58,7 @@
             <th>Status</th>
             <th>Feedbeck</th>
             <th>Waktu</th>
-            <th>Edit</th>
+            <th>Aksi</th>
         </tr>
         <?php
         $sql = $koneksi->query("SELECT
@@ -84,8 +85,8 @@
                 echo "<td>" . $row['lokasi'] . "</td>";
                 echo "<td>" . $row['ket'] . "</td>";
                 echo "<td>" . $row['status'] . "</td>";
-                echo "<td>" . $row['tanggal'] . "</td>";
                 echo "<td>" . $row['feedback'] . "</td>";
+                echo "<td>" . $row['tanggal'] . "</td>";
                 echo "<td> <a href = '?page=edit_aspirasi&id=" . $row['id_pelaporan'] . "'>Edit</a> </td>";
                 echo "</td>";
             }

@@ -10,8 +10,13 @@
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    h1 {
-        color: #ffffff;
+    h2 {
+        color: yellow;
+    }
+    label{
+        display: block;
+        text-decoration: underline #ffeb38;
+        font-size: 25px;
     }
 
     form {
@@ -27,18 +32,31 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        box-shadow: 5px 6px #8fc5ff;
+
     }
 
     textarea {
-        height: 80px;
+        height: 90px;
+        width: 100%;
+        margin: 10px 0;
+        padding: 8px;
     }
     input,
-    select,
-    textarea {
+    select {
         width: 100%;
         height: 50px;
         margin: 10px 0;
         border-radius: 8px;
+        border: none;
+        font-size: 20px;
+    }
+
+    select{
+        padding-left: 40%;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
     }
 </style>
     <?php
@@ -52,9 +70,9 @@
     <form action="" method="post">
         <label for="status">Status:</label>
         <select name="status">
-            <option value="menunggu">Menunggu</option>
-            <option value="proses">Diproses</option>
-            <option value="selesai">Selesai</option>
+            <option value="MENUNGGU">MENUNGGU</option>
+            <option value="DALAM PROSES">DALAM PROSES</option>
+            <option value="SELESAI">SELESAI</option>
         </select>
 
         <label for="feedback">Feedback:</label>
