@@ -60,6 +60,7 @@
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
+            box-shadow: 10px 16px #424242;
         }
     </style>
 </head>

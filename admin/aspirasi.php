@@ -31,7 +31,7 @@
 
     td {
         padding: 8px 10px;
-        font-size: 18px;
+        font-size: 13px;
         color: yellow;
     }
 

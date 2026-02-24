@@ -102,9 +102,11 @@
         } else {
             // Jika id tidak kosong = update, jika kosong = insert
             if (!empty($id)) {
+                // ubah data
                 $stmt = $koneksi->prepare("UPDATE siswa SET NIS=?, kelas=? WHERE id=?");
                 $stmt->bind_param("isi", $NIS, $kelas, $id); // i=integer, s=string, i=integer
             } else {
+                // tambah data
                 $stmt = $koneksi->prepare("INSERT INTO siswa (NIS, kelas) VALUES (?, ?)");
                 $stmt->bind_param("is", $NIS, $kelas); // i=integer, s=string
             }
@@ -138,7 +140,7 @@
         $kelas      = $data['kelas'];
     }
     ?>
-
+<!-- form Tambah/Ubah -->
     <form action="" method="post">
         <input type="hidden" name="id" value="<?= $id_siswa ?>">
 

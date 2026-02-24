@@ -95,9 +95,11 @@
         } else {
             // Jika id tidak kosong = update, jika kosong = insert
             if (!empty($id)) {
+                // Ubah data
                 $stmt = $koneksi->prepare("UPDATE kategori SET ket_kategori=? WHERE id_kategori=?");
                 $stmt->bind_param("si", $ket_kategori, $id);
             } else {
+                // Tambah data
                 $stmt = $koneksi->prepare("INSERT INTO kategori (ket_kategori) VALUES (?)");
                 $stmt->bind_param("s", $ket_kategori);
             }
@@ -112,7 +114,7 @@
         }
     }
 
-    // Ambil data untuk diedit (jika ada parameter id di url)
+    // Ambil data untuk diedit (jika ada id di url)
     if (isset($_GET['id'])) {
         $id   = (int)$_GET['id'];
         $stmt = $koneksi->prepare("SELECT * FROM kategori WHERE id_kategori=?");
@@ -131,7 +133,7 @@
     }
     ?>
 
-    <!-- Form tambah/edit kategori -->
+    <!-- Form tambah/ubah -->
     <form action="" method="post">
         <input type="hidden" name="id" value="<?= $id_kategori ?>">
         <label for="ket_kategori">Kategori:</label>

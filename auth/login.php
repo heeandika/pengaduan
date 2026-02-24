@@ -86,7 +86,7 @@
 <body>
     <form action="" method="post">
         <label for="username">Username:</label>
-        <input type="password" name="username" required>
+        <input type="username" name="username" required>
 
         <label for="passwor">Password:</label>
         <input type="password" name="password" required>
@@ -100,11 +100,18 @@
     // Memulai session
     session_start();
 
+    //Menjalankan function 
+    function Khusus($pass) {
+        return md5($pass);
+
+    }
+
     // Proses submit form login
     if (isset($_POST['submit'])) {
         // Ambil data dari form
         $username = (int)$_POST['username']; // Konversi ke integer untuk keamanan
-        $password = md5($_POST['password']); // Hash password dengan md5
+        // Memanggil function "khusus"
+        $password = Khusus($_POST['password']); // Hash password dengan md5
 
         // Query cek login
         $query = $koneksi->query("SELECT * FROM admin WHERE username = '$username' AND password = '$password'");
