@@ -11,8 +11,13 @@
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    h1 {
-        color: #ffffff;
+    h2 {
+        color: yellow;
+    }
+    label{
+        display: block;
+        text-decoration: underline #ffeb38;
+        font-size: 25px;
     }
 
     form {
@@ -28,18 +33,22 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        box-shadow: 5px 6px #8fc5ff;
+
     }
 
     textarea {
-        height: 80px;
+        height: 90px;
+        width: 100%;
+        margin: 10px 0;
     }
     input,
-    select,
-    textarea {
+    select {
         width: 100%;
         height: 50px;
         margin: 10px 0;
         border-radius: 8px;
+        border: none;
     }
 </style>
 <?php
@@ -63,10 +72,12 @@ if (isset($_POST['submit'])) {
 
     $stmt = $koneksi->prepare("INSERT INTO inp_aspirasi (NIS, id_kategori, lokasi, ket) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("iiss", $NIS, $id_kategori, $lokasi, $ket);
-
+    
     if ($stmt->execute()) {
+        var_dump($stmt->insert_id);
+        $id = $stmt->insert_id;
         $stmt1 = $koneksi->prepare("INSERT INTO aspirasi (id_pelaporan, status, tanggal, feedback, id_kategori) VALUES (?, ?, ?, ?, ?)");
-        $stmt1->bind_param("isssi", $id_pelaporan, $status, $tanggal, $waktu, $id_kategori);
+        $stmt1->bind_param("isssi", $id, $status, $tanggal, $waktu, $id_kategori);
         if ($stmt1->execute()) {
             header("Location: ?page=aspirasi");
         } else {
@@ -77,13 +88,13 @@ if (isset($_POST['submit'])) {
 ?>
 
 <body>
-    <h1>Input aspirasi</h1>
+    <h2>Input aspirasi</h2>
     <form action="" method="post">
         <label for="NIS">NIS:</label>
         <input type="number" name="NIS" required>
 
         <label for="ket_kategori">Kategori</label>
-        <select name="ket_kategori">
+        <select name="id_kategori">
             <option>-- pilih kategori --</option>
             <?php
             $result = $koneksi->query("SELECT * FROM kategori ORDER BY ket_kategori");

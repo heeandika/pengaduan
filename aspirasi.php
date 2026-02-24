@@ -67,7 +67,7 @@
         FROM inp_aspirasi
         LEFT JOIN siswa ON inp_aspirasi.NIS = siswa.NIS
         LEFT JOIN kategori ON inp_aspirasi.id_kategori = kategori.id_kategori
-        LEFT JOIN aspirasi ON inp_aspirasi.id_kategori = aspirasi.id_kategori
+        LEFT JOIN aspirasi ON inp_aspirasi.id_pelaporan = aspirasi.id_pelaporan
         ");
 
         if ($sql->num_rows > 0) {

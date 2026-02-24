@@ -44,7 +44,7 @@
     <?php
       if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $stmt = $koneksi->query("SELECT * FROM aspirasi WHERE id_aspirasi=$id");
+        $stmt = $koneksi->query("SELECT * FROM aspirasi WHERE id_pelaporan=$id");
       }
     ?>
 <body>
