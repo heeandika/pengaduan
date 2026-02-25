@@ -117,7 +117,7 @@
                 exit();
             } else {
                 $error = "Error: " . $stmt->error;
-            }
+            } 
         }
     }
 
