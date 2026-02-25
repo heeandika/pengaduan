@@ -139,6 +139,27 @@
         $NIS        = $data['NIS'];
         $kelas      = $data['kelas'];
     }
+
+        if (isset($_GET['hapus_id'])) {
+        // Ambil id dari url dan konversi ke integer untuk keamanan
+        $hapus_id = $_GET['hapus_id'];
+
+        $cek = $koneksi->query("SELECT id_pelaporan FROM inp_aspirasi WHERE id_pelaporan = $hapus_id");
+
+        if ($cek->num_rows > 0) {
+            echo "<script>alert('ID Sedang Digunakan!!');window.location='?page=kategori';</script>";
+        } else {
+            $hapuslah = $koneksi->query("DELETE FROM kategori WHERE id_kategori=$hapus_id");
+
+            if ($hapuslah) {
+                echo "<script>alert('Data kategori berhasil dihapus!!');window.location='?page=kategori';</script>";
+            } else {
+                echo "<script>alert('Coba lagi  !!');window.location='?page=kategori';</script>";
+                exit();
+            }
+        }
+    }
+
     ?>
 <!-- form Tambah/Ubah -->
     <form action="" method="post">

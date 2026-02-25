@@ -25,14 +25,6 @@
         max-width: 350px;
         }
 
-    h1 {
-        color: white;
-        text-align: center;
-        margin-top: 0;
-        margin-bottom: 30px;
-        font-size: 24px;
-    }
-
     label {
         display: block;
         margin-top: 15px;

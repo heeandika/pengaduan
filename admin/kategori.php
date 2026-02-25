@@ -131,6 +131,39 @@
         $id_kategori    = $data['id_kategori'];
         $ket_kategori   = $data['ket_kategori'];
     }
+    if (isset($_GET['hapus_id'])) {
+        // Ambil id dari url dan konversi ke integer untuk keamanan
+        $hapus_id = $_GET['hapus_id'];
+
+        $cek = $koneksi->query("SELECT id_pelaporan FROM inp_aspirasi WHERE id_pelaporan = $hapus_id");
+
+        if ($cek->num_rows > 0) {
+            echo "<script>alert('ID Sedang Digunakan!!');window.location='?page=kategori';</script>";
+        } else {
+            $hapuslah = $koneksi->query("DELETE FROM kategori WHERE id_kategori=$hapus_id");
+
+            if ($hapuslah) {
+                echo "<script>alert('Data kategori berhasil dihapus!!');window.location='?page=kategori';</script>";
+            } else {
+                echo "<script>alert('Coba lagi  !!');window.location='?page=kategori';</script>";
+                exit();
+            }
+        }
+
+        // Siapkan query delete dengan prepared statement
+        $stmt = $koneksi->prepare("DELETE FROM kategori WHERE id_kategori=?");
+        $stmt->bind_param("i", $id);
+
+        // Jalankan query delete
+        if ($stmt->execute()) {
+            // Redirect ke halaman kategori jika berhasil
+            header("Location: ?page=kategori");
+            exit();
+        } else {
+            // Tampilkan pesan error jika gagal
+            echo "ERROR:" . $stmt->error;
+        }
+    }
     ?>
 
     <!-- Form tambah/ubah -->
@@ -160,7 +193,7 @@
                 echo "<td>" . htmlspecialchars($row['ket_kategori']) . "</td>";
                 echo "<td>
                 <a href='?page=kategori&id=" . $row['id_kategori'] . "'>Edit</a> |
-                <a href='?page=hapus_kategori&id=" . $row['id_kategori'] . "' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a>
+                <a href='?page=kategori&hapus_id=" . $row['id_kategori'] . "' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a>
             </td>";
                 echo "</tr>";
             }
