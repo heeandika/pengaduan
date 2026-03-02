@@ -64,17 +64,17 @@
         <?php
         // Query untuk mengambil data aspirasi dengan join ke tabel lain
         $sql = $koneksi->query("SELECT
-        inp_aspirasi.*,
-        siswa.kelas,
-        kategori.ket_kategori,
-        aspirasi.status,
-        aspirasi.feedback,
-        aspirasi.tanggal
-        FROM inp_aspirasi
-        LEFT JOIN siswa ON inp_aspirasi.NIS = siswa.NIS
-        LEFT JOIN kategori ON inp_aspirasi.id_kategori = kategori.id_kategori
-        LEFT JOIN aspirasi ON inp_aspirasi.id_pelaporan = aspirasi.id_pelaporan
-        ");
+inp_aspirasi.*,
+siswa.kelas,
+kategori.ket_kategori,
+aspirasi.status,
+aspirasi.feedback,
+aspirasi.tanggal
+FROM inp_aspirasi
+LEFT JOIN siswa ON inp_aspirasi.NIS = siswa.NIS
+LEFT JOIN kategori ON inp_aspirasi.id_kategori = kategori.id_kategori
+LEFT JOIN aspirasi ON inp_aspirasi.id_pelaporan = aspirasi.id_pelaporan
+");
 
         // Cek apakah ada data yang ditemukan
         if ($sql->num_rows > 0) {
@@ -91,12 +91,23 @@
                 echo "<td>" . $row['status'] . "</td>";
                 echo "<td>" . $row['feedback'] . "</td>";
                 echo "<td>" . $row['tanggal'] . "</td>";
-                echo "<td> <a href='?page=edit_aspirasi&id=" . $row['id_pelaporan'] . "'>Edit</a> </td>";
+                echo "<td>";
+
+                // CEK STATUS: Jika status SELESAI, button edit HILANG
+                if ($row['status'] == 'selesai') {
+                    // Tampilkan teks atau icon bahwa sudah selesai
+                    echo "<span style='color: green; font-weight: bold;'>✓ Selesai</span>";
+                } else {
+                    // Tampilkan button edit
+                    echo "<a href='?page=edit_aspirasi&id=" . $row['id_pelaporan'] . "'>Edit</a>";
+                }
+
+                echo "</td>";
                 echo "</tr>";
             }
         } else {
             // Tampilkan pesan jika tidak ada data
-            echo "data belum ada!!";
+            echo "<tr><td colspan='10' style='text-align:center'>data belum ada!!</td></tr>";
         }
         ?>
     </table>

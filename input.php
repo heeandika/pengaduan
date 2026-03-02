@@ -27,7 +27,7 @@
         color: white;
     }
 
-    button {
+    .submit {
         background-color: #007bff;
         color: white;
         padding: 20px 25px;
@@ -36,6 +36,19 @@
         cursor: pointer;
         box-shadow: 5px 6px #8fc5ff;
         font-size: 15px;
+        margin-right: 2%;
+
+    }
+    .batal {
+        background-color: #4d0000;
+        color: red;
+        padding: 20px 25px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 5px 6px #ff2424;
+        font-size: 15px;
+        text-decoration: none;
 
     }
 
@@ -135,7 +148,8 @@ if (isset($_POST['submit'])) {
         <label for="ket">Keterangan</label>
         <textarea name="ket"></textarea>
 
-        <button type="submit" name="submit">Submit</button>
+        <button type="submit" name="submit" class="submit">Submit</button>
+        <a href="?page=aspirasi" class="batal">Batal</a>
     </form>
 </body>
 

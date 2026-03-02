@@ -1,7 +1,7 @@
 <?php 
 // Koneksi ke database menggunakan mysqli
 try {
-    $koneksi = new mysqli("localhost", "root", "", "pengaduan");
+    $koneksi = new mysqli("localhost", "root", "", "pengaduan_sekolah");
 } catch (\Throwable $th) {
     // Tampilkan pesan error jika koneksi gagal
     echo "ERROR: " . $th->getMessage();
